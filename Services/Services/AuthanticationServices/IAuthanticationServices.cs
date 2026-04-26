@@ -15,6 +15,7 @@ namespace Services.Services.AuthanticationServices
         Task<AuthResult> RefreshToken(string token );
         Task<ResponseDto> ConfirmEmail(int? userid, string? code);
 
+        Task<bool> RevokedToken (string token);
       
     }
 }

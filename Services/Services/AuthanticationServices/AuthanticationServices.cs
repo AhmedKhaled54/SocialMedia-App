@@ -69,41 +69,10 @@ namespace Services.Services.AuthanticationServices
             await _UOW.Repository<RefreshToken>().AddAsync(refresh);
             await _UOW.Complete();
 
-
-
-            //user.RefreshTokens?.Add(refreshtoken);
-            ////user.RefreshTokens?.Add(refreshtoken);
-            //await userManager.UpdateAsync(user);
-            ////await uOW.Repository<RefreshToken>().AddAsync(refreshtoken);
-            ////await uOW.Complete();
             response.AccessToken = token;
             response.RefreshToken = refreshtoken.Token;
             response.RefreshTokenExpire = refreshtoken.ExpireOn;
             return response;
-
-
-
-
-            //    if (user.RefreshTokens.Any(c=>c.IsActive))
-            //    {
-            //        var ActiveToken = user.RefreshTokens.Single(c => c.IsActive);
-            //        response.RefreshToken = ActiveToken.Token;
-            //        response.RefreshTokenExpire=ActiveToken.ExpireOn;
-
-            //    }
-
-            //        var refreshtoken = GenerateRefreshToken(user.Id);
-            //        response.RefreshToken = refreshtoken.Token;
-            //        response.RefreshTokenExpire = refreshtoken.ExpireOn;
-            //        user.RefreshTokens?.Add(refreshtoken);
-            //        await userManager.UpdateAsync(user);
-
-
-            //    response.AccessToken = token;
-            //    response.RefreshToken=refreshtoken.Token;
-            //    response.RefreshTokenExpire=refreshtoken.ExpireOn;
-            //    return response;
-            //}
         }
         public async Task<AuthResult> RefreshToken(string token)
         {
@@ -129,24 +98,6 @@ namespace Services.Services.AuthanticationServices
                 RefreshToken = NewRefreshToken.Token,
                 RefreshTokenExpire = refreshtoken.ExpireOn
             };
-
-
-            //var refreshtoken =user.RefreshTokens.Single(c=>c.Token == token);
-            //if (!refreshtoken.IsActive)
-            //    return new AuthResult { Message = "INActive Token !" };
-
-            //refreshtoken.RevokedOn=DateTime.Now;
-            //var newrefreshToken =GenerateRefreshToken(user.Id);
-            //user.RefreshTokens.Add(newrefreshToken);
-            //await userManager.UpdateAsync(user);
-            //var accesstoken = await GenerateJwtToken(user);
-            //return new AuthResult
-            //{
-            //    AccessToken = accesstoken,
-            //    RefreshToken = newrefreshToken.Token,
-            //    RefreshTokenExpire = refreshtoken.ExpireOn
-            //};
-
 
         }
 
@@ -272,6 +223,17 @@ namespace Services.Services.AuthanticationServices
                 Success = true,
                 Message = "Email confirm successfuly "
             };
+
+        }
+
+        public async Task<bool> RevokedToken(string token)
+        {
+          var RefreshToken =await _UOW.Repository<RefreshToken>().FindAsync(c=>c.Token == token);
+            if (RefreshToken == null)
+               return false;
+            RefreshToken.RevokedOn=DateTime.UtcNow;
+            await _UOW.Complete();
+            return true;
 
         }
     }

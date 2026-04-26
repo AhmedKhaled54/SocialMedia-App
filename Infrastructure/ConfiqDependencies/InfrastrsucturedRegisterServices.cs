@@ -105,9 +105,9 @@ namespace Infrastructure.ConfiqDependencies
                        ValidateIssuer = true,
                        ValidIssuer = jwt.Issuer,
                        ValidateIssuerSigningKey = true,
-                       IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(confiq["JWT:Key"])),
+                      // IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(confiq["JWT:Key"])),
 
-                      // IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwt.Key)),
+                      IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwt.Key)),
                        ValidAudience = jwt.Audience,
                        ValidateAudience = true,
                        ValidateLifetime = true,
@@ -121,7 +121,12 @@ namespace Infrastructure.ConfiqDependencies
                    };
                });
 
+            services.Configure<IdentityOptions>(c => c.SignIn.RequireConfirmedEmail = true);
+            services.Configure<DataProtectionTokenProviderOptions>(c => c.TokenLifespan = TimeSpan.FromHours(30));
 
+            services.AddIdentityCore<User>(options => options.SignIn.RequireConfirmedAccount = true)
+                           .AddEntityFrameworkStores<AppDbContext>()
+                           .AddTokenProvider<DataProtectorTokenProvider<User>>(TokenOptions.DefaultProvider);
 
             return services;
         }

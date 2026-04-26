@@ -1,4 +1,7 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Core.Behavior;
+using FluentValidation;
+using MediatR;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.SqlServer.Server;
 using System;
 using System.Collections.Generic;
@@ -16,6 +19,9 @@ namespace Core.ConfiqurationDependancies
             services.AddMediatR(c => c.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
+            //get validator 
+            services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
+            services.AddTransient(typeof(IPipelineBehavior<,>),typeof(Validationbehavior<,>));//=>handle in middleware 
             return services;
         }
     }

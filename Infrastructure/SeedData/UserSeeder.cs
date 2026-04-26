@@ -1,4 +1,5 @@
-﻿using Data.Identity;
+﻿using Data.Enums.Authantication;
+using Data.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -20,7 +21,7 @@ namespace Infrastructure.SeedData
                 {
                     UserName = "admin",
                     Email = "admin@project.com",
-                    Gender = "Male",
+                    Gender = Gender.Male,
                     BirthDate = new DateOnly(2002, 12, 1),
                     EmailConfirmed = true,
                     PhoneNumberConfirmed = true

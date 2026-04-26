@@ -1,4 +1,5 @@
 using Core.ConfiqurationDependancies;
+using Core.MidddleWare;
 using Data.Identity;
 using Infrastructure.ConfiqDependencies;
 using Infrastructure.SeedData;
@@ -13,13 +14,14 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-
+builder.Services.AddHttpContextAccessor();
 //dependencies services
 builder.Services
     .AddInfrastrsucturedependencies()
     .AddInfrstructureRegitserServices(builder.Configuration)
     .AddRegisterServices()
-    .AddCoreConfiqRegister();
+    .AddCoreConfiqRegister().AddServicesDependanciesConfiq(builder.Configuration);
+
 var app = builder.Build();
 //seed user & role  data 
 using (var scope = app.Services.CreateScope())
@@ -35,13 +37,16 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+    app.UseMiddleware<ErrorHandlingMiddleWare>();
 }
 
+app.UseStaticFiles();
 app.UseHttpsRedirection();
+app.UseRouting();
 
-app.UseAuthorization();
+
 app.UseAuthentication();
-
+app.UseAuthorization();
 app.MapControllers();
 
 app.Run();

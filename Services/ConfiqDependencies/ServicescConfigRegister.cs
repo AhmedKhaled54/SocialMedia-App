@@ -2,8 +2,13 @@
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.Extensions.DependencyInjection;
+
+using Services.FilesServices;
 using Services.Services.AuthanticationServices;
+using Services.Services.CachServices;
 using Services.Services.EmailServices;
+using Services.Services.OtpService;
+using StackExchange.Redis;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,6 +23,9 @@ namespace Services.ConfiqDependencies
         {
             services.AddTransient<IAuthanticationServices, AuthanticationServices>();
             services.AddTransient<IEmailServices, EmailServices>();
+            services.AddTransient<IFileServices,FileServices>();
+            services.AddTransient<ICachServices,CachServices>();
+            services.AddTransient<IOtpServices, OtpServices>();
 
             services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
             services.AddTransient<IUrlHelper>(c =>

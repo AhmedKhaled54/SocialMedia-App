@@ -1,4 +1,5 @@
-﻿using Data.Helper;
+﻿using Core.Bases;
+using Data.Helper;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Core.Feature.Authantication.command.Models
 {
-    public  class RefreshTokenCommand:IRequest<AuthResult>
+    public  class RefreshTokenCommand:IRequest<Response<AuthResult>>
     {
         public string Token { get; set; }
     }

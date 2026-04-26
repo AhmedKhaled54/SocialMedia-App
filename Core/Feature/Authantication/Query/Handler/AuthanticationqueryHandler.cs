@@ -1,4 +1,5 @@
-﻿using Core.Feature.Authantication.Query.Models;
+﻿using Core.Bases;
+using Core.Feature.Authantication.Query.Models;
 using MediatR;
 using Services.Services.AuthanticationServices;
 using System;
@@ -9,7 +10,8 @@ using System.Threading.Tasks;
 
 namespace Core.Feature.Authantication.Query.Handler
 {
-    public class AuthanticationqueryHandler : IRequestHandler<ConfirmEmailQuery, string>
+    public class AuthanticationqueryHandler :ResponseHanlder ,
+        IRequestHandler<ConfirmEmailQuery,Response<string>>
     {
         private readonly IAuthanticationServices services;
 
@@ -17,13 +19,12 @@ namespace Core.Feature.Authantication.Query.Handler
         {
             this.services = services;
         }
-        public async Task<string> Handle(ConfirmEmailQuery request, CancellationToken cancellationToken)
+        public async Task<Response<string>> Handle(ConfirmEmailQuery request, CancellationToken cancellationToken)
         {
             var Aud = await services.ConfirmEmail(request.userid, request.Code);
             if (!Aud.Success)
-                return Aud.Message;
-
-            return Aud.Message;
+                return BadRequest<string>(Aud.Message);
+            return Success(Aud.Message);
            
         }
     }
