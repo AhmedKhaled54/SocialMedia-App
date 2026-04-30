@@ -29,7 +29,7 @@ namespace Infrastructure.Repositories
             =>_context.Set<T>().Update(entity);
 
 
-        public void DeleteAsync(T entity)
+        public void Delete(T entity)
             =>_context.Set<T>().Remove(entity);
 
         public async Task<T> FindAsync(Expression<Func<T, bool>> match)
@@ -37,9 +37,17 @@ namespace Infrastructure.Repositories
 
        
 
-        public Task<IEnumerable<T>> GetAllpridicated(Expression<Func<T, bool>> match, string[] include = null)
+        public IQueryable<T> GetAllpridicated(Expression<Func<T, bool>> match, string[] include = null)
         {
-            throw new NotImplementedException();
+            IQueryable<T> query = _context.Set<T>().AsNoTracking();
+            if (query == null)
+                return null;
+            if (include != null)
+                foreach (var includes  in include)
+                    query= query.Include(includes);
+
+            return query.Where(match);
+            
         }
 
         
@@ -51,6 +59,8 @@ namespace Infrastructure.Repositories
 
         public IQueryable<T> GetTableAsNoTracking()
             => _context.Set<T>().AsNoTracking().AsQueryable();
+        public IQueryable<T> GetTable(Expression<Func<T,bool>> match)
+            => _context.Set<T>().Where(match).AsQueryable();
         public IDbContextTransaction BeginTrnaction()
             =>_context.Database.BeginTransaction();
 

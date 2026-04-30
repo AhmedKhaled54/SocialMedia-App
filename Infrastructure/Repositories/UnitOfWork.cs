@@ -1,5 +1,6 @@
 ﻿using Infrastructure.Abstract;
 using Infrastructure.Data;
+using Microsoft.EntityFrameworkCore.Storage;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -13,16 +14,24 @@ namespace Infrastructure.Repositories
     {
         private readonly AppDbContext _context;
         private Hashtable _hashtable;
+
+        public AppDbContext Context => _context;
+
         public UnitOfWork(AppDbContext context)
         {
             _context = context;
         }
+
+       
+
         public async Task<int> Complete()
             =>await _context.SaveChangesAsync();
 
         public void Dispose()
             =>_context.Dispose();
 
+        public async Task<IDbContextTransaction> BeginTransactionAsync()
+            =>await _context.Database.BeginTransactionAsync();
         public IGenericRepository<T> Repository<T>() where T : class
         {
             if (_hashtable == null)

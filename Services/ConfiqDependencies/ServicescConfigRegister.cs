@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.Extensions.DependencyInjection;
 
 using Services.FilesServices;
+using Services.RealTimeServices.MessageServices;
+using Services.RealTimeServices.NotificationsServices;
 using Services.Services.AuthanticationServices;
 using Services.Services.CachServices;
 using Services.Services.EmailServices;
@@ -26,6 +28,9 @@ namespace Services.ConfiqDependencies
             services.AddTransient<IFileServices,FileServices>();
             services.AddTransient<ICachServices,CachServices>();
             services.AddTransient<IOtpServices, OtpServices>();
+            services.AddTransient<INotificationServices,NotificationServices>();
+            services.AddTransient<IPrivateMessageServices,PrivateMessageServices>();
+
 
             services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
             services.AddTransient<IUrlHelper>(c =>

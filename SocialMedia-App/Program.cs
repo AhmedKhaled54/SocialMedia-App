@@ -2,6 +2,7 @@ using Core.ConfiqurationDependancies;
 using Core.MidddleWare;
 using Data.Identity;
 using Infrastructure.ConfiqDependencies;
+using Infrastructure.Hup;
 using Infrastructure.SeedData;
 using Microsoft.AspNetCore.Identity;
 using Services.ConfiqDependencies;
@@ -15,6 +16,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddHttpContextAccessor();
+builder.Services.AddSignalR();
 //dependencies services
 builder.Services
     .AddInfrastrsucturedependencies()
@@ -39,7 +41,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
     app.UseMiddleware<ErrorHandlingMiddleWare>();
 }
-
+app.MapHub<ChatHup>("/ChatHup");
 app.UseStaticFiles();
 app.UseHttpsRedirection();
 app.UseRouting();
