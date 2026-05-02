@@ -1,4 +1,4 @@
-﻿using Data.Entity;
+﻿using Data.Follower;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
@@ -24,7 +24,7 @@ namespace Infrastructure.ConfiqurationDependancies
                 .HasForeignKey(c => c.FollowingId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-
+            builder.HasIndex(c => new { c.FollowerId, c.FollowingId }).IsUnique();
         }
     }
 }

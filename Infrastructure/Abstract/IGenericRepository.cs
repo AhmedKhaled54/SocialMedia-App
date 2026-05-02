@@ -22,6 +22,7 @@ namespace Infrastructure.Abstract
         T Getpridicated(Expression<Func<T, bool>> match, string[] include = null!);
         Task<T> FindAsync(Expression<Func<T, bool>> match);
         IDbContextTransaction BeginTrnaction();
+        Task<bool>IsAny(Expression<Func<T, bool>> match);
 
     }
 }

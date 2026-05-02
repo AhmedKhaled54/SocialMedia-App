@@ -3,6 +3,7 @@ using Core.Feature.ApplicationUser.Query.Model;
 using Core.Feature.ApplicationUser.Query.Result;
 using Core.Feature.Authantication.command.Models;
 using Core.Resolver.AppUser;
+using Core.Resolver.Follower;
 using Data.Identity;
 using System;
 using System.Collections.Generic;

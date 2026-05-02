@@ -64,6 +64,7 @@ namespace Infrastructure.Repositories
         public IDbContextTransaction BeginTrnaction()
             =>_context.Database.BeginTransaction();
 
-        
+        public async Task<bool> IsAny(Expression<Func<T, bool>> match)
+            =>await _context.Set<T>().AnyAsync(match);
     }
 }

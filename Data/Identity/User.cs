@@ -3,6 +3,7 @@ using Data.Entity.Comments;
 using Data.Entity.Posts;
 using Data.Entity.Stories;
 using Data.Enums.Authantication;
+using Data.Follower;
 using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
@@ -18,6 +19,7 @@ namespace Data.Identity
         public DateOnly BirthDate { get; set; }
         public string? Image { get; set; }
         public Gender Gender { get; set; }
+        public bool IsPrivate {  get; set; }
 
         public List<RefreshToken> RefreshTokens { get; set; }
         public ICollection<Post> Posts { get; set; }=new List<Post>();
@@ -32,6 +34,10 @@ namespace Data.Identity
         public ICollection<PrivateMessage> ReceivedMessages { get; set; } = new List<PrivateMessage>();
         public ICollection<Notification> Notifications { get; set; } = new List<Notification>(); //recive 
         public ICollection<Notification> SendeNotication { get; set; } = new List<Notification>();//Actor  
+
+        public ICollection<FollowRequest> SendFollowRequests { get; set; }=new List<FollowRequest>();
+        public ICollection<FollowRequest> ReceiveFollowRequest { get; set; }=new List<FollowRequest>();
+
 
     }
 }

@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Data.Entity
+namespace Data.Follower
 {
     public class Follow
     {

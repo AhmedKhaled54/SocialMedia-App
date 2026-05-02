@@ -9,6 +9,7 @@ using Services.RealTimeServices.NotificationsServices;
 using Services.Services.AuthanticationServices;
 using Services.Services.CachServices;
 using Services.Services.EmailServices;
+using Services.Services.FollowService;
 using Services.Services.OtpService;
 using StackExchange.Redis;
 using System;
@@ -30,6 +31,7 @@ namespace Services.ConfiqDependencies
             services.AddTransient<IOtpServices, OtpServices>();
             services.AddTransient<INotificationServices,NotificationServices>();
             services.AddTransient<IPrivateMessageServices,PrivateMessageServices>();
+            services.AddTransient<IFollowServices,FollowServices>();
 
 
             services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();

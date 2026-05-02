@@ -1,6 +1,5 @@
 ﻿using Core.Feature.conversation.Command.Models;
 using FluentValidation;
-using Core.Feature.conversation.Command.Models;
 
 namespace Core.Feature.conversation.Command.Validator
 {

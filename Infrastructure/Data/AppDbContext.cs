@@ -2,6 +2,7 @@
 using Data.Entity.Comments;
 using Data.Entity.Posts;
 using Data.Entity.Stories;
+using Data.Follower;
 using Data.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
@@ -46,6 +47,6 @@ namespace Infrastructure.Data
         public DbSet<Story> Stories { get;set; }    
         public DbSet<PostMedia> PostMedias { get;set; }
         public DbSet<CommentMedia> CommentMedias { get;set; }
-
+        public DbSet<FollowRequest> FollowRequests { get;set; }
     }
 }
