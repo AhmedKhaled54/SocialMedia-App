@@ -12,7 +12,7 @@ namespace Services.FilesServices
     public class FileServices : IFileServices
     {
         private readonly IWebHostEnvironment webHost;
-        private new List<string> allowextention = new List<string>() { ".jpg", ".png", "jpeg" };
+        private new List<string> allowextention = new List<string>() { ".jpg", ".png", "jpeg",".mp4" };
         private long maxsizeimage = 109951163;//2MB
         public FileServices(IWebHostEnvironment webHost)
         {
@@ -24,7 +24,7 @@ namespace Services.FilesServices
         public async Task<string> UploadImage(IFormFile file, string folder)
         {
             if (!allowextention.Contains(Path.GetExtension(file.FileName.ToLower())))
-                throw new Exception("Must Be Image Allawed (.png) / (.jpg) / (.jpeg) ! ");
+                throw new Exception("Must Be Image Allawed (.png) / (.jpg) / (.jpeg) / (.mp4) ! ");
 
             if (file.Length > maxsizeimage)
                 throw new Exception("ax size is 2MB");

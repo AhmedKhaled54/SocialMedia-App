@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace Core.Wrappers
@@ -12,6 +13,7 @@ namespace Core.Wrappers
         {
              Data= data;
         }
+        public Pagination() { }
         public Pagination(bool success ,List<T> data=default, List<string> message =null,int pagesize =10,int count =0,int page=1 )
         {
 

@@ -1,5 +1,6 @@
 ﻿using Infrastructure.Abstract;
 using Infrastructure.Data;
+using Infrastructure.Specification;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
 using System;
@@ -66,5 +67,19 @@ namespace Infrastructure.Repositories
 
         public async Task<bool> IsAny(Expression<Func<T, bool>> match)
             =>await _context.Set<T>().AnyAsync(match);
+
+        public IQueryable<T> GetEntitiesWithSpecs(ISpecification<T> specification)
+            =>ApplyQuery(specification);
+
+
+
+        private IQueryable<T> ApplyQuery(ISpecification<T> specification)
+            =>EvaluationSpecifications<T>.GetQuery(_context.Set<T>().AsQueryable(), specification);
+
+        public void RemoveRange(List<T> entity)
+            =>_context.Set<T>().RemoveRange(entity);
+
+        public async Task<T> GetEntityByIdSepcs(ISpecification<T> specification)
+            =>await ApplyQuery(specification).FirstOrDefaultAsync();
     }
 }

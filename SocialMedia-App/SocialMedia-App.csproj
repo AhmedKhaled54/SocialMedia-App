@@ -20,7 +20,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="wwwroot\Comments\Images\" />
+    <Folder Include="wwwroot\Comments\Videos\" />
     <Folder Include="wwwroot\Images\Users\" />
+    <Folder Include="wwwroot\Posts\Images\" />
+    <Folder Include="wwwroot\Posts\Videos\" />
   </ItemGroup>
 
 </Project>

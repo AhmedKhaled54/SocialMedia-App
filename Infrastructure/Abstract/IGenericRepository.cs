@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Storage;
+﻿using Infrastructure.Specification;
+using Microsoft.EntityFrameworkCore.Storage;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,6 +24,11 @@ namespace Infrastructure.Abstract
         Task<T> FindAsync(Expression<Func<T, bool>> match);
         IDbContextTransaction BeginTrnaction();
         Task<bool>IsAny(Expression<Func<T, bool>> match);
+
+        //sepecification pattern 
+        IQueryable<T> GetEntitiesWithSpecs(ISpecification<T> specification);
+        Task<T> GetEntityByIdSepcs(ISpecification<T> specification);
+        void RemoveRange (List<T> entity);
 
     }
 }

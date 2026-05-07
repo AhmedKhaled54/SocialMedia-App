@@ -8,9 +8,12 @@ using Services.RealTimeServices.MessageServices;
 using Services.RealTimeServices.NotificationsServices;
 using Services.Services.AuthanticationServices;
 using Services.Services.CachServices;
+using Services.Services.CommentsServices;
 using Services.Services.EmailServices;
 using Services.Services.FollowService;
 using Services.Services.OtpService;
+using Services.Services.PostsServices;
+using Services.Services.RactsServices;
 using StackExchange.Redis;
 using System;
 using System.Collections.Generic;
@@ -32,6 +35,10 @@ namespace Services.ConfiqDependencies
             services.AddTransient<INotificationServices,NotificationServices>();
             services.AddTransient<IPrivateMessageServices,PrivateMessageServices>();
             services.AddTransient<IFollowServices,FollowServices>();
+            services.AddTransient<IPostServices,PostServices>();
+            services.AddTransient<IReactServices,ReactServices>();
+            services.AddTransient<ICommentServices,CommentServices>();
+
 
 
             services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();

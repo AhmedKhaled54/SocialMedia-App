@@ -29,7 +29,7 @@ namespace Infrastructure.ConfiqurationDependancies
             builder.HasOne(c=>c.Post)
                 .WithMany(c=>c.Likes)
                 .HasForeignKey(c=>c.PostId)
-                .OnDelete(DeleteBehavior.Cascade);
+                .OnDelete(DeleteBehavior.NoAction);
 
             //constrain Unduplication   => user can like in post only one 
             builder.HasIndex(c => new { c.UsertId, c.PostId })
