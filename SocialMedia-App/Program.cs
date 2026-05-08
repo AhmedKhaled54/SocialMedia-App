@@ -1,11 +1,13 @@
 using Core.ConfiqurationDependancies;
 using Core.MidddleWare;
 using Data.Identity;
+using Hangfire;
 using Infrastructure.ConfiqDependencies;
 using Infrastructure.Hup;
 using Infrastructure.SeedData;
 using Microsoft.AspNetCore.Identity;
 using Services.ConfiqDependencies;
+using Services.Wrapper.Hangfire;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -46,9 +48,18 @@ app.UseStaticFiles();
 app.UseHttpsRedirection();
 app.UseRouting();
 
-
+app.UseHangfireDashboard("/Dashboard");
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
+using (var scope = app.Services.CreateScope())
+{
+    var recurring = scope.ServiceProvider.GetRequiredService<IRecurringJobManager>();
+
+    recurring.AddOrUpdate<StoryCleanupJops>(
+        "cleanup-expired-stories",
+        job => job.Execute(),
+        Cron.Hourly);
+}
 
 app.Run();

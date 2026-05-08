@@ -1,5 +1,6 @@
 ﻿using Data.Helper;
 using Data.Identity;
+using Hangfire;
 using Infrastructure.Data;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
@@ -16,9 +17,9 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.ConfiqDependencies
 {
-    public static  class InfrastrsucturedRegisterServices
+    public static class InfrastrsucturedRegisterServices
     {
-        public static IServiceCollection AddInfrstructureRegitserServices(this  IServiceCollection services,IConfiguration confiq)
+        public static IServiceCollection AddInfrstructureRegitserServices(this IServiceCollection services, IConfiguration confiq)
         {
             //add db context 
             var connection = confiq.GetConnectionString("C1");
@@ -26,6 +27,10 @@ namespace Infrastructure.ConfiqDependencies
             {
                 c.UseSqlServer(connection);
             });
+
+            //Add hangfire 
+            services.AddHangfire(c => c.UseSqlServerStorage(connection));
+            services.AddHangfireServer();
             services.AddIdentity<User, Role>(options =>
             {
                 options.Password.RequireDigit = true;
@@ -60,7 +65,7 @@ namespace Infrastructure.ConfiqDependencies
 
 
 
-           
+
             // Swagger setup
             services.AddSwaggerGen(c =>
             {
@@ -105,9 +110,9 @@ namespace Infrastructure.ConfiqDependencies
                        ValidateIssuer = true,
                        ValidIssuer = jwt.Issuer,
                        ValidateIssuerSigningKey = true,
-                      // IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(confiq["JWT:Key"])),
+                       // IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(confiq["JWT:Key"])),
 
-                      IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwt.Key)),
+                       IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwt.Key)),
                        ValidAudience = jwt.Audience,
                        ValidateAudience = true,
                        ValidateLifetime = true,
@@ -130,7 +135,7 @@ namespace Infrastructure.ConfiqDependencies
 
             return services;
         }
-            
-        }
+
     }
+}
 

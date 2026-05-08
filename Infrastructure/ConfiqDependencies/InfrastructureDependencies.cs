@@ -14,11 +14,10 @@ namespace Infrastructure.ConfiqDependencies
 {
     public static class InfrastructureDependencies
     {
-        public static IServiceCollection AddInfrastrsucturedependencies(this IServiceCollection services )
+        public static IServiceCollection AddInfrastrsucturedependencies(this IServiceCollection services)
         {
-           services.AddTransient(typeof(IGenericRepository<>),typeof(GenericRepository<>));
+            services.AddTransient(typeof(IGenericRepository<>), typeof(GenericRepository<>));
             services.AddTransient<IUnitOfWork, UnitOfWork>();
-
 
             return services;
         }

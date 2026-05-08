@@ -1,5 +1,7 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Hangfire;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Services.Wrapper.Hangfire;
 using StackExchange.Redis;
 using System;
 using System.Collections.Generic;

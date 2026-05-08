@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Hangfire;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.Extensions.DependencyInjection;
@@ -14,6 +15,8 @@ using Services.Services.FollowService;
 using Services.Services.OtpService;
 using Services.Services.PostsServices;
 using Services.Services.RactsServices;
+using Services.Services.StoriesServices;
+using Services.Wrapper.Hangfire;
 using StackExchange.Redis;
 using System;
 using System.Collections.Generic;
@@ -38,6 +41,8 @@ namespace Services.ConfiqDependencies
             services.AddTransient<IPostServices,PostServices>();
             services.AddTransient<IReactServices,ReactServices>();
             services.AddTransient<ICommentServices,CommentServices>();
+            services.AddTransient<IStoryServices,StoryServices>();
+            services.AddScoped<StoryCleanupJops>();
 
 
 

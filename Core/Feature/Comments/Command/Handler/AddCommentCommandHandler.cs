@@ -79,7 +79,7 @@ namespace Core.Feature.Comments.Command.Handler
         {
 
             var userid = GetCurrentUserId();
-            if (userid == null)
+            if (userid == 0)
                 return UnAuthorize<string>("Incorrect Please Try Again !");
             var result = await _reactServices.CommentReactAsync(request.CommentId, userid, request.React);
             if (!result.notify || result.ownerid == userid)
