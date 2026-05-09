@@ -3,12 +3,14 @@ using Core.Feature.Posts.Command.Models;
 using Core.Feature.Posts.Query.Models;
 using Core.Feature.Posts.Query.Result;
 using Core.Wrappers;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Query;
 
 namespace SocialMedia_App.Controllers
 {
+    [Authorize(Roles ="User")]
     public class PostsController : BaseController
     {
 

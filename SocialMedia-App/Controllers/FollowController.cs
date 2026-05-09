@@ -2,11 +2,14 @@
 using Core.Feature.Follow.Query.Models;
 using Core.Feature.Follow.Query.Results;
 using Core.Wrappers;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace SocialMedia_App.Controllers
 {
+    [Authorize(Roles = "User")]
+
     public class FollowController : BaseController
     {
 

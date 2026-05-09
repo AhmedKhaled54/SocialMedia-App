@@ -2,12 +2,15 @@
 using Core.Feature.conversation.Query.Models;
 using Core.Feature.conversation.Query.Results;
 using Core.Wrappers;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace SocialMedia_App.Controllers
 {
-   
+    [Authorize(Roles = "User")]
+
+
     public class ConversationController : BaseController
     {
 

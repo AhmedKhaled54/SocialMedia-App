@@ -1,11 +1,13 @@
 ﻿using Core.Feature.Story.Command.Models;
 using Core.Feature.Story.Query.Models;
 using Core.Feature.Story.Query.Results;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace SocialMedia_App.Controllers
 {
+    [Authorize(Roles = "User")]
 
     public class StoryController : BaseController
     {

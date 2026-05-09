@@ -2,11 +2,14 @@
 using Core.Feature.Comments.Command.Models;
 using Core.Feature.Comments.Query.Models;
 using Core.Feature.Comments.Query.Results;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace SocialMedia_App.Controllers
 {
+    [Authorize(Roles = "User")]
+
 
     public class CommentsController : BaseController
     {

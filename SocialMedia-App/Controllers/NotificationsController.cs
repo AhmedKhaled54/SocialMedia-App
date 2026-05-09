@@ -1,11 +1,13 @@
 ﻿using Core.Feature.Notifications.Comand.Models;
 using Core.Feature.Notifications.Query.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MimeKit.Tnef;
 
 namespace SocialMedia_App.Controllers
 {
+    [Authorize(Roles = "User")]
 
     public class NotificationsController : BaseController
     {

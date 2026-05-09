@@ -1,6 +1,7 @@
 ﻿using Core.Feature.Authantication.command.Models;
 using Core.Feature.Authantication.Query.Models;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Org.BouncyCastle.Bcpg.Sig;
@@ -40,6 +41,7 @@ namespace SocialMedia_App.Controllers
             return NewResult (result);
         }
 
+        [Authorize(Roles = "User")]
 
         [HttpPut]
         public async Task<IActionResult> EditProfile([FromForm] EditProfileCommand cmd)
