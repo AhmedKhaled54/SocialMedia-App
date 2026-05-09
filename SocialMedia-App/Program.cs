@@ -8,6 +8,7 @@ using Infrastructure.SeedData;
 using Microsoft.AspNetCore.Identity;
 using Services.ConfiqDependencies;
 using Services.Wrapper.Hangfire;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,7 +26,12 @@ builder.Services
     .AddInfrstructureRegitserServices(builder.Configuration)
     .AddRegisterServices()
     .AddCoreConfiqRegister().AddServicesDependanciesConfiq(builder.Configuration);
-
+//enum converter for swagger
+builder.Services.AddControllers().AddJsonOptions(options =>
+{
+    options.JsonSerializerOptions.Converters
+        .Add(new JsonStringEnumConverter());
+});
 var app = builder.Build();
 //seed user & role  data 
 using (var scope = app.Services.CreateScope())

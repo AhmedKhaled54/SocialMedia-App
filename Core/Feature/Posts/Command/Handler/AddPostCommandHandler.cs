@@ -138,7 +138,7 @@ namespace Core.Feature.Posts.Command.Handler
         public async  Task<Response<string>> Handle(ReactToPostCommand request, CancellationToken cancellationToken)
         {
             var userid = GetCurrentUser();
-            if (userid == null)
+            if (userid <= 0)
                 return UnAuthorize<string>("Incorrect Please Try Again !");
             var response = await _reactServices.PostReactionAsync(request.PostId, userid, request.ReactType);
             if (!response.Notify || response.PostOwnerId == userid)
