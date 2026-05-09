@@ -20,11 +20,11 @@ This project is a full-featured social media backend covering user authenticatio
 
 ```
 SocialMedia-App/
-├── Core/               # Entities, interfaces, domain logic
-├── Data/               # EF Core DbContext, migrations, configurations
-├── Infrastructure/     # Repositories, Unit of Work, external services
-├── Services/           # CQRS handlers (MediatR), business logic
-└── SocialMedia-App/    # API controllers, middleware, dependency injection
+├── Core/               # CQRS handlers (MediatR),middleware
+├── Data/               #Entities, Enums,Helpers
+├── Infrastructure/     # Repositories, Unit of Workو EF Core DbContext
+├── Services/           #  business logic
+└── SocialMedia-App/    # API controllers
 ```
 
 ---
